@@ -25,6 +25,7 @@ var maximum_pitch: float = 0.60
 var mouse_input := Vector2.ZERO
 ## The player's movement input as a vector.
 var movement_input := Vector2.ZERO
+var is_dead: bool = false
 
 ## The component used to apply movement to the player.
 @onready var character_mover: CharacterMover = %CharacterMover
@@ -32,6 +33,7 @@ var movement_input := Vector2.ZERO
 @onready var camera_pivot: Node3D = %CameraPivot
 ## The player's first-person camera.
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var health_manager: HealthManager = %HealthManager
 
 
 func _ready() -> void:
@@ -39,6 +41,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if is_dead:
+		return
 	# Get movement input and set the new movement direction on the character mover.
 	movement_input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var rotated_movement_input: Vector2 = movement_input.rotated(-camera_pivot.global_transform.basis.get_euler().y)
@@ -50,6 +54,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_dead:
+		return
 	# Accumulate mouse input for camera pivot rotation.
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_input.x += event.relative.x * mouse_sensitivity_horizontal
@@ -70,6 +76,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Handle the player's camera rotation based on mouse input.
 func handle_camera_rotation() -> void:
+	if is_dead:
+		return
 	# Reset camera pivot rotation.
 	camera_pivot.transform.basis = Basis.IDENTITY
 	# Clamp mouse input pitch.
@@ -88,3 +96,13 @@ func handle_camera_rotation() -> void:
 	
 	# Reset orthogonal and axis lengths every frame to keep rotations accurate.
 	camera_pivot.transform = camera_pivot.transform.orthonormalized()
+
+
+func die() -> void:
+	is_dead = true
+	character_mover.movement_direction = Vector3.ZERO
+	
+
+
+func _on_died() -> void:
+	die()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfxvjnok32tx5"]
+[gd_scene load_steps=6 format=3 uid="uid://dfxvjnok32tx5"]
 
 [ext_resource type="Script" uid="uid://bpug7bqq2m224" path="res://characters/player/player.gd" id="1_508ok"]
 [ext_resource type="PackedScene" uid="uid://b8edjldep3yyl" path="res://characters/character_mover/character_mover.tscn" id="2_xxgcw"]
+[ext_resource type="PackedScene" uid="uid://e8ewu3j53h2x" path="res://characters/health_manager/health_manager.tscn" id="3_exd8k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
@@ -30,3 +31,8 @@ unique_name_in_owner = true
 [node name="CharacterMover" parent="." node_paths=PackedStringArray("character_body") instance=ExtResource("2_xxgcw")]
 unique_name_in_owner = true
 character_body = NodePath("..")
+
+[node name="HealthManager" parent="." instance=ExtResource("3_exd8k")]
+unique_name_in_owner = true
+
+[connection signal="died" from="HealthManager" to="." method="_on_died"]

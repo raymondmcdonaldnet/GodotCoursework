@@ -1,5 +1,5 @@
 class_name CharacterMover
-extends Node3D
+extends Node
 ## The component used to apply movement to [CharacterBody3D] parent characters.
 
 ## The character body to apply movement to.

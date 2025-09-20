@@ -1,0 +1,162 @@
+[gd_scene load_steps=11 format=3 uid="uid://p11081jkukdj"]
+
+[ext_resource type="PackedScene" uid="uid://gj2gwjdvlbaq" path="res://environment/rock_boulder.tscn" id="1_c651c"]
+[ext_resource type="PackedScene" uid="uid://b65x780boemss" path="res://environment/rock_cliff.tscn" id="2_3wy1v"]
+[ext_resource type="PackedScene" uid="uid://bny3uv4yyvg4l" path="res://environment/rock_pillar.tscn" id="3_kfbq2"]
+[ext_resource type="PackedScene" uid="uid://cg53xe2gm4owe" path="res://environment/sand.tscn" id="4_4dugh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c651c"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_3wy1v"]
+sky_material = SubResource("ProceduralSkyMaterial_c651c")
+
+[sub_resource type="Environment" id="Environment_kfbq2"]
+background_mode = 2
+sky = SubResource("Sky_3wy1v")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Animation" id="Animation_c651c"]
+resource_name = "camera_flyover"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(61.103672, 6.77606, -0.3415146), Vector3(61.103672, 6.77606, 38.487415), Vector3(18.371864, 6.77606, 25.74207)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.3397708, 0), Vector3(0, 1.6863545, 0), Vector3(0, -1.1945558, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3wy1v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(61.103672, 6.77606, -0.3415146)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.6863545, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wy1v"]
+_data = {
+&"RESET": SubResource("Animation_3wy1v"),
+&"camera_flyover": SubResource("Animation_c651c")
+}
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.49999544, -0.7521485, 0.42927518, 0.0021555112, 0.49676207, 0.8678841, 50.10546, 67.55406, -13.519661)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kfbq2")
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="RockBoulder" parent="Environment" instance=ExtResource("1_c651c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.624037, 2.5022006, 14.138734)
+
+[node name="RockBoulder2" parent="Environment" instance=ExtResource("1_c651c")]
+transform = Transform3D(0.9272552, -0.37439156, 0.0053650686, 0.3663466, 0.9101051, 0.1936464, -0.07738235, -0.17759414, 0.98105675, 57.47603, 2.713266, 48.63186)
+
+[node name="RockCliff" parent="Environment" instance=ExtResource("2_3wy1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.136635, 2.3177338, 6.783493)
+
+[node name="RockPillar" parent="Environment" instance=ExtResource("3_kfbq2")]
+transform = Transform3D(0.4851759, 0, 0.8744166, 0, 1, 0, -0.8744166, 0, 0.4851759, 62.040146, 0, 57.946465)
+
+[node name="RockPillar2" parent="Environment" instance=ExtResource("3_kfbq2")]
+transform = Transform3D(-0.08830327, 0, 0.99609363, 0, 1, 0, -0.99609363, 0, -0.08830327, 47.68763, 2.91705, 58.673256)
+
+[node name="Sand" parent="Environment" instance=ExtResource("4_4dugh")]
+
+[node name="Sand2" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="Sand3" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="Sand4" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+
+[node name="Sand5" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+
+[node name="Sand6" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 60)
+
+[node name="Sand7" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 40)
+
+[node name="Sand8" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 60)
+
+[node name="Sand9" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
+
+[node name="Sand10" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 20)
+
+[node name="Sand11" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0)
+
+[node name="Sand12" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 20)
+
+[node name="Sand13" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 40)
+
+[node name="Sand14" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 60)
+
+[node name="Sand15" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 40)
+
+[node name="Sand16" parent="Environment" instance=ExtResource("4_4dugh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 60)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.11530117, 0, 0.9933306, 0, 1, 0, -0.99333054, 0, -0.11530118, 61.103672, 6.77606, -0.3415146)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3wy1v")
+}
+autoplay = "camera_flyover"

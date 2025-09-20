@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://p11081jkukdj"]
+[gd_scene load_steps=9 format=3 uid="uid://p11081jkukdj"]
 
 [ext_resource type="PackedScene" uid="uid://gj2gwjdvlbaq" path="res://environment/rock_boulder.tscn" id="1_c651c"]
 [ext_resource type="PackedScene" uid="uid://b65x780boemss" path="res://environment/rock_cliff.tscn" id="2_3wy1v"]
 [ext_resource type="PackedScene" uid="uid://bny3uv4yyvg4l" path="res://environment/rock_pillar.tscn" id="3_kfbq2"]
 [ext_resource type="PackedScene" uid="uid://cg53xe2gm4owe" path="res://environment/sand.tscn" id="4_4dugh"]
+[ext_resource type="PackedScene" uid="uid://dfxvjnok32tx5" path="res://characters/player/player.tscn" id="5_3wy1v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c651c"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -17,67 +18,6 @@ background_mode = 2
 sky = SubResource("Sky_3wy1v")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="Animation" id="Animation_c651c"]
-resource_name = "camera_flyover"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 5, 10),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(61.103672, 6.77606, -0.3415146), Vector3(61.103672, 6.77606, 38.487415), Vector3(18.371864, 6.77606, 25.74207)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 5, 10),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 2.3397708, 0), Vector3(0, 1.6863545, 0), Vector3(0, -1.1945558, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_3wy1v"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(61.103672, 6.77606, -0.3415146)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.6863545, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wy1v"]
-_data = {
-&"RESET": SubResource("Animation_3wy1v"),
-&"camera_flyover": SubResource("Animation_c651c")
-}
 
 [node name="Main" type="Node3D"]
 
@@ -152,11 +92,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 40)
 [node name="Sand16" parent="Environment" instance=ExtResource("4_4dugh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 60)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.11530117, 0, 0.9933306, 0, 1, 0, -0.99333054, 0, -0.11530118, 61.103672, 6.77606, -0.3415146)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_3wy1v")
-}
-autoplay = "camera_flyover"
+[node name="Player" parent="." instance=ExtResource("5_3wy1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.596413, 0, 28.81094)

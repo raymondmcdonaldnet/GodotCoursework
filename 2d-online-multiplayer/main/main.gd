@@ -54,5 +54,10 @@ func _on_connected_to_server() -> void:
 
 
 func _on_game_started() -> void:
+	# Servers and clients should all unload the main menu.
 	unload_main_menu_scene()
-	load_game_scene()
+	# Clients should wait to connect to server and let server load Game scene.
+	if not multiplayer.is_server():
+		await multiplayer.connected_to_server
+	else:
+		load_game_scene()

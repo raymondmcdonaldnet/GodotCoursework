@@ -16,12 +16,14 @@ func _ready() -> void:
 	load_main_menu_scene()
 
 
+## Load the [MainMenu] scene.
 func load_main_menu_scene() -> void:
 	var main_menu := main_menu_scene.instantiate() as MainMenu
 	main_menu.game_started.connect(_on_game_started)
 	scenes.add_child(main_menu, true)
 
 
+## Unload the [MainMenu] scene.
 func unload_main_menu_scene() -> void:
 	var main_menu := scenes.get_child(0) as MainMenu
 	if main_menu:
@@ -29,11 +31,13 @@ func unload_main_menu_scene() -> void:
 		main_menu.queue_free()
 
 
+## Load the [Game] scene.
 func load_game_scene() -> void:
 	var game := game_scene.instantiate() as Game
 	scenes.add_child(game, true)
 
 
+## Unload the [Game] scene.
 func unload_game_scene() -> void:
 	var game := scenes.get_child(0) as Game
 	if game:

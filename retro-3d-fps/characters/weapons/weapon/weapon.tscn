@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://suqud4yiax36"]
+
+[ext_resource type="Script" uid="uid://byx2bn65f8h5" path="res://characters/weapons/weapon/weapon.gd" id="1_ucac7"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ucac7"]
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_ucac7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("CylinderMesh_ucac7")

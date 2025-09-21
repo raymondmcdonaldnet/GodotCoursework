@@ -1,12 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfxvjnok32tx5"]
+[gd_scene load_steps=12 format=3 uid="uid://dfxvjnok32tx5"]
 
 [ext_resource type="Script" uid="uid://bpug7bqq2m224" path="res://characters/player/player.gd" id="1_508ok"]
+[ext_resource type="PackedScene" uid="uid://suqud4yiax36" path="res://characters/weapons/weapon/weapon.tscn" id="2_ixbpm"]
 [ext_resource type="PackedScene" uid="uid://b8edjldep3yyl" path="res://characters/character_mover/character_mover.tscn" id="2_xxgcw"]
 [ext_resource type="PackedScene" uid="uid://e8ewu3j53h2x" path="res://characters/health_manager/health_manager.tscn" id="3_exd8k"]
+[ext_resource type="PackedScene" uid="uid://bedvno6xa4m7f" path="res://characters/weapons/weapon_manager/weapon_manager.tscn" id="4_5dc8e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b886q"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_508ok"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_c6leb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ixbpm"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_c6leb"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_dirf7"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -28,6 +38,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.75)
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 unique_name_in_owner = true
 
+[node name="Weapons" type="Node3D" parent="CameraPivot"]
+unique_name_in_owner = true
+
+[node name="Machete" parent="CameraPivot/Weapons" instance=ExtResource("2_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34334087, 0, -0.8544866)
+visible = false
+mesh = SubResource("BoxMesh_c6leb")
+
+[node name="MachineGun" parent="CameraPivot/Weapons" instance=ExtResource("2_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34334087, 0, -0.46851444)
+visible = false
+mesh = SubResource("SphereMesh_ixbpm")
+
+[node name="Shotgun" parent="CameraPivot/Weapons" instance=ExtResource("2_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34334087, 0, -0.46851444)
+visible = false
+mesh = SubResource("PrismMesh_c6leb")
+
+[node name="RocketLauncher" parent="CameraPivot/Weapons" instance=ExtResource("2_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34334087, 0, -0.46851444)
+visible = false
+mesh = SubResource("TorusMesh_dirf7")
+
 [node name="CharacterMover" parent="." node_paths=PackedStringArray("character_body") instance=ExtResource("2_xxgcw")]
 unique_name_in_owner = true
 character_body = NodePath("..")
@@ -35,4 +68,8 @@ character_body = NodePath("..")
 [node name="HealthManager" parent="." instance=ExtResource("3_exd8k")]
 unique_name_in_owner = true
 
-[connection signal="died" from="HealthManager" to="." method="_on_died"]
+[node name="WeaponManager" parent="." node_paths=PackedStringArray("weapons") instance=ExtResource("4_5dc8e")]
+unique_name_in_owner = true
+weapons = [NodePath("../CameraPivot/Weapons/Machete"), NodePath("../CameraPivot/Weapons/MachineGun"), NodePath("../CameraPivot/Weapons/Shotgun"), NodePath("../CameraPivot/Weapons/RocketLauncher")]
+
+[connection signal="died" from="HealthManager" to="." method="_on_health_manager_died"]

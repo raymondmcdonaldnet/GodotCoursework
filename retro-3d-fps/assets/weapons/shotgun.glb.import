@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://x3ry1cj0xeu4"
-path="res://.godot/imported/sand.glb-72151ca7f97e799b46cc0c028bd29b16.scn"
+uid="uid://ct10mp5ykwpkb"
+path="res://.godot/imported/shotgun.glb-4eaa138be1221655dd3350608d0cd458.scn"
 
 [deps]
 
-source_file="res://assets/sand.glb"
-dest_files=["res://.godot/imported/sand.glb-72151ca7f97e799b46cc0c028bd29b16.scn"]
+source_file="res://assets/weapons/shotgun.glb"
+dest_files=["res://.godot/imported/shotgun.glb-4eaa138be1221655dd3350608d0cd458.scn"]
 
 [params]
 
@@ -37,14 +37,6 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"materials": {
-"Material": {
-"use_external/enabled": true,
-"use_external/fallback_path": "res://assets/sand_material.tres",
-"use_external/path": "uid://bupfg6c3feqk5"
-}
-}
-}
+_subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

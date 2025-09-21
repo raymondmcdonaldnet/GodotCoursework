@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxohwphlsihyu"
-path.s3tc="res://.godot/imported/jungle_stone_d.jpg-25998b74b015a3c102fd8dbe34f01c0b.s3tc.ctex"
+uid="uid://cdij7sd0i1jry"
+path.s3tc="res://.godot/imported/shotgun_wood.png-92692ef1045d50af605c992d22e4c336.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "15c374974295ac74c65c5ec96b8af3d8"
+}
 
 [deps]
 
-source_file="res://assets/jungle_stone_d.jpg"
-dest_files=["res://.godot/imported/jungle_stone_d.jpg-25998b74b015a3c102fd8dbe34f01c0b.s3tc.ctex"]
+source_file="res://assets/weapons/shotgun_wood.png"
+dest_files=["res://.godot/imported/shotgun_wood.png-92692ef1045d50af605c992d22e4c336.s3tc.ctex"]
 
 [params]
 

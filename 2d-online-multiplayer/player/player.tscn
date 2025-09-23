@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5bg2otktm48b"]
+[gd_scene load_steps=6 format=3 uid="uid://c5bg2otktm48b"]
 
 [ext_resource type="Script" uid="uid://fo5ksg5t3cf5" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Texture2D" uid="uid://dxo67ynu3oc1a" path="res://player/player-medium.png" id="2_rkbax"]
+[ext_resource type="Texture2D" uid="uid://bs5vrtyti240u" path="res://player/rifle.png" id="3_g1dw6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oul6g"]
 properties/0/path = NodePath(".:global_position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:aim_vector")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oul6g"]
 radius = 6.0
@@ -22,6 +26,16 @@ replication_config = SubResource("SceneReplicationConfig_oul6g")
 texture = ExtResource("2_rkbax")
 centered = false
 offset = Vector2(-8, -26)
+
+[node name="WeaponRoot" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -9)
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponRoot"]
+position = Vector2(6, 3)
+texture = ExtResource("3_g1dw6")
+centered = false
+offset = Vector2(-15, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)

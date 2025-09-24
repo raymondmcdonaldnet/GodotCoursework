@@ -2,11 +2,16 @@ class_name Player
 extends CharacterBody2D
 ## The player character.
 
+## Emitted when host player goes to create a bullet. [Game] handles creating bullets.
+signal bullet_created(pos: Vector2, direction: Vector2)
+
 ## Store the player's movement input and synchronize it instead of position to 
 ## help prevent cheating.
 var movement_input := Vector2.ZERO
 ## The direction the player is aiming at.
 var aim_vector := Vector2.RIGHT
+## The [Bullet] scene.
+var bullet_scene: PackedScene = preload("uid://bpbr8yyqb3cfs")
 
 @onready var weapon_root: Node2D = %WeaponRoot
 
@@ -30,6 +35,15 @@ func _physics_process(_delta: float) -> void:
 	apply_movement_to_all_peers()
 	apply_aiming()
 	apply_aiming_to_all_peers()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Only handle input on the multiplayer authority.
+	if not is_multiplayer_authority():
+		return
+	
+	if event.is_action_released("attack"):
+		create_bullet.rpc_id(1, global_position, aim_vector)
 
 
 ## Instruct all peers to set their velocity and then move.
@@ -56,3 +70,9 @@ func apply_aiming_to_all_peers() -> void:
 @rpc("any_peer", "call_remote", "unreliable")
 func apply_aiming() -> void:
 	weapon_root.look_at(weapon_root.global_position + aim_vector)
+
+
+## Instruct the host to emit the signal the [Game] uses to instantiate bullets.
+@rpc("any_peer", "call_local", "reliable")
+func create_bullet(pos: Vector2, direction: Vector2) -> void:
+	bullet_created.emit(pos, direction)

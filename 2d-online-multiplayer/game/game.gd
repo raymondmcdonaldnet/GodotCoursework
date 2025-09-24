@@ -9,6 +9,7 @@ var player_scene: PackedScene = preload("uid://c5bg2otktm48b")
 @onready var player_spawner: MultiplayerSpawner = %PlayerSpawner
 ## The node used to contain [Player] instances.
 @onready var players: Node = %Players
+@onready var bullets: Node = %Bullets
 
 
 func _ready() -> void:
@@ -17,6 +18,7 @@ func _ready() -> void:
 		var player := player_scene.instantiate() as Player
 		player.name = str(data.peer_id)
 		player.set_multiplayer_authority(data.peer_id)
+		player.bullet_created.connect(_on_bullet_created)
 		return player
 	peer_ready.rpc_id(1)
 
@@ -26,3 +28,9 @@ func _ready() -> void:
 func peer_ready() -> void:
 	var sender_id: int = multiplayer.get_remote_sender_id()
 	player_spawner.spawn({"peer_id": sender_id})
+
+
+## Respond to request to create a bullet at given position with given direction.
+func _on_bullet_created(pos: Vector2, direction: Vector2) -> void:
+	var bullet: Bullet = Bullet.new_bullet(pos, direction)
+	bullets.add_child(bullet, true)

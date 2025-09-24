@@ -4,12 +4,15 @@ extends Node2D
 
 ## The [Player] scene.
 var player_scene: PackedScene = preload("uid://c5bg2otktm48b")
+## The basic [Enemy] scene.
+var enemy_scene: PackedScene = preload("uid://ps4kh5bv46ja")
 
 ## The spawner used to synchronize new [Player] instances.
 @onready var player_spawner: MultiplayerSpawner = %PlayerSpawner
 ## The node used to contain [Player] instances.
 @onready var players: Node = %Players
 @onready var bullets: Node = %Bullets
+@onready var enemies: Node = %Enemies
 
 
 func _ready() -> void:
@@ -21,6 +24,9 @@ func _ready() -> void:
 		player.bullet_created.connect(_on_bullet_created)
 		return player
 	peer_ready.rpc_id(1)
+	
+	if multiplayer.is_server():
+		enemies.add_child(Enemy.new_enemy(Vector2(50, 50)), true)
 
 
 ## Spawn a new player with the remote peer's ID.

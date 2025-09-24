@@ -22,6 +22,10 @@ script = ExtResource("1_oul6g")
 [node name="PositionSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_oul6g")
 
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_rkbax")
 centered = false

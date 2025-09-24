@@ -13,6 +13,7 @@ var aim_vector := Vector2.RIGHT
 ## The [Bullet] scene.
 var bullet_scene: PackedScene = preload("uid://bpbr8yyqb3cfs")
 
+@onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
 @onready var weapon_root: Node2D = %WeaponRoot
 
 
@@ -27,6 +28,8 @@ func _process(_delta: float) -> void:
 	# Should only run on multiplayer authority (this peer). Get movement input.
 	movement_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	aim_vector = weapon_root.global_position.direction_to(weapon_root.get_global_mouse_position())
+	if Input.is_action_pressed("attack"):
+		try_create_bullet.rpc_id(1, global_position, aim_vector)
 
 
 func _physics_process(_delta: float) -> void:
@@ -35,15 +38,6 @@ func _physics_process(_delta: float) -> void:
 	apply_movement_to_all_peers()
 	apply_aiming()
 	apply_aiming_to_all_peers()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	# Only handle input on the multiplayer authority.
-	if not is_multiplayer_authority():
-		return
-	
-	if event.is_action_released("attack"):
-		create_bullet.rpc_id(1, global_position, aim_vector)
 
 
 ## Instruct all peers to set their velocity and then move.
@@ -73,5 +67,8 @@ func apply_aiming() -> void:
 
 ## Instruct the host to emit the signal the [Game] uses to instantiate bullets.
 @rpc("any_peer", "call_local", "reliable")
-func create_bullet(pos: Vector2, direction: Vector2) -> void:
-	bullet_created.emit(pos, direction)
+func try_create_bullet(pos: Vector2, direction: Vector2) -> void:
+	# Only create a bullet if attack cooldown is inactive.
+	if attack_cooldown_timer.is_stopped():
+		bullet_created.emit(pos, direction)
+		attack_cooldown_timer.start()

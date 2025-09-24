@@ -18,5 +18,5 @@ spawn_path = NodePath("../Bullets")
 [node name="Players" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="Bullets" type="Node" parent="." groups=["bullet_parent_node"]]
+[node name="Bullets" type="Node" parent="."]
 unique_name_in_owner = true

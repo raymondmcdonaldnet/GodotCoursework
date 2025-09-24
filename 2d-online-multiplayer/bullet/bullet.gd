@@ -38,6 +38,11 @@ func die() -> void:
 	queue_free()
 
 
+## Handle collisions.
+func register_collision() -> void:
+	die()
+
+
 ## Respond to life time elapsing.
 func _on_life_timer_timeout() -> void:
 	# Only kill bullets on host so that MultiplayerSpawner can handle despawning.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://hyftnjv0hous"]
+[gd_scene load_steps=3 format=3 uid="uid://hyftnjv0hous"]
 
 [ext_resource type="Script" uid="uid://dku1a4fd7e67s" path="res://game/game.gd" id="1_l1rk1"]
+[ext_resource type="PackedScene" uid="uid://ps4kh5bv46ja" path="res://enemy/Enemy.tscn" id="2_vasa2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_l1rk1")
@@ -20,3 +21,9 @@ unique_name_in_owner = true
 
 [node name="Bullets" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="Enemies" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("2_vasa2")]
+position = Vector2(144, 125)

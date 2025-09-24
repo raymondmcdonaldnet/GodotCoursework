@@ -57,7 +57,6 @@ func apply_movement_to_all_peers() -> void:
 func apply_movement() -> void:
 	velocity = movement_input * 100.0
 	move_and_slide()
-	movement_input = Vector2.ZERO
 
 
 ## Instruct all peers to aim their gun toward the aim vector.

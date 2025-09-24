@@ -14,6 +14,8 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lgfl"]
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+motion_mode = 1
 script = ExtResource("1_d1f0f")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

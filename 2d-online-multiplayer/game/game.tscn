@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://hyftnjv0hous"]
+[gd_scene load_steps=5 format=3 uid="uid://hyftnjv0hous"]
 
 [ext_resource type="Script" uid="uid://dku1a4fd7e67s" path="res://game/game.gd" id="1_l1rk1"]
+[ext_resource type="Texture2D" uid="uid://f0f46qyw45f7" path="res://game/arena.png" id="2_vasa2"]
+[ext_resource type="PackedScene" uid="uid://l0l8806cgroo" path="res://wall/wall.tscn" id="3_h7iqs"]
+[ext_resource type="PackedScene" uid="uid://ck0x8wk8r6mmv" path="res://spawn_point/spawn_point.tscn" id="4_4fuuu"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_l1rk1")
@@ -27,3 +30,46 @@ spawn_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="PlayerOneSpawnPoint" parent="SpawnPoints" instance=ExtResource("4_4fuuu")]
+unique_name_in_owner = true
+position = Vector2(175, 107)
+
+[node name="PlayerTwoSpawnPoint" parent="SpawnPoints" instance=ExtResource("4_4fuuu")]
+unique_name_in_owner = true
+position = Vector2(449, 102)
+
+[node name="EnemySpawnPoint" parent="SpawnPoints" instance=ExtResource("4_4fuuu")]
+unique_name_in_owner = true
+position = Vector2(316, 180)
+
+[node name="Arena" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("2_vasa2")
+metadata/_edit_lock_ = true
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(80, 175)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(559, 175)
+
+[node name="Wall3" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(246, 35)
+rotation = -1.5707964
+
+[node name="Wall6" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(392, 35)
+rotation = -1.5707964
+
+[node name="Wall4" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(246, 318)
+rotation = -1.5707964
+
+[node name="Wall5" parent="Walls" instance=ExtResource("3_h7iqs")]
+position = Vector2(393, 318)
+rotation = -1.5707964

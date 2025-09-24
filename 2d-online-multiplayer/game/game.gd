@@ -13,12 +13,19 @@ var enemy_scene: PackedScene = preload("uid://ps4kh5bv46ja")
 @onready var players: Node = %Players
 @onready var bullets: Node = %Bullets
 @onready var enemies: Node = %Enemies
+@onready var player_one_spawn_point: Marker2D = %PlayerOneSpawnPoint
+@onready var player_two_spawn_point: Marker2D = %PlayerTwoSpawnPoint
+@onready var enemy_spawn_point: Marker2D = %EnemySpawnPoint
 
 
 func _ready() -> void:
 	# Use a custom spawn to add new players as they connect and initialize.
 	player_spawner.spawn_function = func(data: Variant) -> Player:
 		var player := player_scene.instantiate() as Player
+		if data.peer_id == 1:
+			player.global_position = player_one_spawn_point.global_position
+		else:
+			player.global_position = player_two_spawn_point.global_position
 		player.name = str(data.peer_id)
 		player.set_multiplayer_authority(data.peer_id)
 		player.bullet_created.connect(_on_bullet_created)
@@ -26,7 +33,7 @@ func _ready() -> void:
 	peer_ready.rpc_id(1)
 	
 	if multiplayer.is_server():
-		enemies.add_child(Enemy.new_enemy(Vector2(50, 50)), true)
+		enemies.add_child(Enemy.new_enemy(enemy_spawn_point.global_position), true)
 
 
 ## Spawn a new player with the remote peer's ID.

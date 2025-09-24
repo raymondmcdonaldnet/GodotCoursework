@@ -15,7 +15,7 @@ var enemy_scene: PackedScene = preload("uid://ps4kh5bv46ja")
 @onready var enemies: Node = %Enemies
 @onready var player_one_spawn_point: Marker2D = %PlayerOneSpawnPoint
 @onready var player_two_spawn_point: Marker2D = %PlayerTwoSpawnPoint
-@onready var enemy_spawn_point: Marker2D = %EnemySpawnPoint
+@onready var enemy_spawn_rect: ReferenceRect = %EnemySpawnRect
 
 
 func _ready() -> void:
@@ -31,9 +31,6 @@ func _ready() -> void:
 		player.bullet_created.connect(_on_bullet_created)
 		return player
 	peer_ready.rpc_id(1)
-	
-	if multiplayer.is_server():
-		enemies.add_child(Enemy.new_enemy(enemy_spawn_point.global_position), true)
 
 
 ## Spawn a new player with the remote peer's ID.
@@ -43,7 +40,24 @@ func peer_ready() -> void:
 	player_spawner.spawn({"peer_id": sender_id})
 
 
+func get_random_enemy_spawn_position() -> Vector2:
+	var x: float = randf_range(0.0, enemy_spawn_rect.size.x)
+	var y: float = randf_range(0.0, enemy_spawn_rect.size.y)
+	return enemy_spawn_rect.global_position + Vector2(x, y)
+
+
+## Spawn a new enemy.
+func spawn_enemy() -> void:
+	var enemy: Enemy = Enemy.new_enemy(get_random_enemy_spawn_position())
+	enemies.add_child(enemy, true)
+
+
 ## Respond to request to create a bullet at given position with given direction.
 func _on_bullet_created(pos: Vector2, direction: Vector2) -> void:
 	var bullet: Bullet = Bullet.new_bullet(pos, direction)
 	bullets.add_child(bullet, true)
+
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	if multiplayer.is_server():
+		spawn_enemy()
